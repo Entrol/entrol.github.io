@@ -39,7 +39,8 @@ body{
     linear-gradient(rgba(45,226,255,0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(45,226,255,0.05) 1px, transparent 1px);
   background-size:46px 46px;
-  mask-image:radial-gradient(ellipse 90% 70% at 50% 0%, #000 35%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 35%, transparent 85%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 35%, transparent 85%);
 }
 .glow-layer{
   position:absolute;inset:0;
@@ -92,7 +93,9 @@ body{
   font-family:var(--mono);font-size:12px;letter-spacing:.14em;
   color:var(--cyan);background:rgba(45,226,255,0.06);
   border:1px solid var(--line-strong);padding:7px 14px;cursor:pointer;
-  position:relative;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
+  position:relative;
+  -webkit-clip-path: polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
+  clip-path: polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
   transition:.2s;
 }
 .scan-btn:hover{background:rgba(45,226,255,0.16);color:var(--cyan-bright);box-shadow:var(--glow)}
@@ -103,6 +106,7 @@ body{
   border: 1px solid var(--line);
   background: rgba(8, 12, 18, 0.45);
   padding: 2px;
+  -webkit-clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
   clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
   gap: 2px;
 }
@@ -115,6 +119,7 @@ body{
   padding: 4px 8px;
   cursor: pointer;
   transition: all 0.2s;
+  -webkit-clip-path: polygon(3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%, 0 3px);
   clip-path: polygon(3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%, 0 3px);
 }
 .lang-btn:hover {
@@ -151,6 +156,7 @@ body{
   background:var(--panel);
   border:1px solid var(--line);
   backdrop-filter:blur(9px);
+  -webkit-backdrop-filter:blur(9px);
   padding:20px 22px;
   transition:border-color .3s, box-shadow .3s, transform .3s;
 }
@@ -187,10 +193,16 @@ body{
   display:grid;place-items:center;
   border:1px solid var(--line-strong);
   background:radial-gradient(circle at 50% 35%, rgba(45,226,255,.14), transparent 70%);
-  clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);
+  -webkit-clip-path: polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);
+  clip-path: polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);
 }
 .avatar .mono-id{font-family:var(--display);font-weight:800;font-size:38px;color:var(--cyan);letter-spacing:.04em;text-shadow:var(--glow)}
-.avatar .ring{position:absolute;inset:8px;border:1px dashed rgba(45,226,255,.3);clip-path:inherit;animation:spin 22s linear infinite}
+.avatar .ring{
+  position:absolute;inset:8px;border:1px dashed rgba(45,226,255,.3);
+  -webkit-clip-path: inherit;
+  clip-path: inherit;
+  animation:spin 22s linear infinite
+}
 @keyframes spin{to{transform:rotate(360deg)}}
 .id-main{flex:1;min-width:0}
 .id-main .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--muted);margin-bottom:6px}
@@ -209,7 +221,9 @@ body{
   display:inline-flex;align-items:center;gap:9px;max-width:100%;
   font-family:var(--mono);font-size:12px;letter-spacing:.1em;line-height:1.35;
   padding:8px 14px 8px 13px;border:1px solid var(--line);background:rgba(45,226,255,.04);
-  color:var(--muted);clip-path:polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px);
+  color:var(--muted);
+  -webkit-clip-path: polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px);
+  clip-path: polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px);
 }
 .badge .b-v{white-space:nowrap}
 .badge.live{color:var(--teal);border-color:rgba(39,255,208,.4);background:rgba(39,255,208,.06)}
@@ -225,6 +239,7 @@ body{
   border:1px solid var(--line);background:rgba(8,12,18,.5);
   padding:11px 14px;font-family:var(--mono);
   clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);
+  -webkit-clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);
   transition:.2s;
 }
 .packet:hover{border-color:var(--line-strong);background:rgba(45,226,255,.05);transform:translateX(3px)}
@@ -315,7 +330,8 @@ body{
 .filter{
   font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
   padding:9px 16px;border:1px solid var(--line);background:rgba(8,12,18,.4);color:var(--muted);cursor:pointer;
-  clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
+  -webkit-clip-path: polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
+  clip-path: polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
   transition:.2s;
 }
 .filter:hover{color:var(--text);border-color:var(--line-strong)}
