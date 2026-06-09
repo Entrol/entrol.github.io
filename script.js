@@ -111,6 +111,7 @@ let bdone=false;
 function finishBoot(){
   if(bdone) return; bdone=true;
   bootEl.classList.add('gone');
+  document.body.classList.remove('loading');
   setTimeout(()=>{ bootEl.style.display='none'; }, REDUCED?0:600);
   revealAll();
   animateMetrics();
@@ -136,6 +137,7 @@ window.addEventListener('keydown', e=>{ if(e.key==='Escape') finishBoot(); });
 
 if(REDUCED){
   bootEl.style.display='none'; bdone=true;
+  document.body.classList.remove('loading');
   revealAll();
   animateMetrics(); animateCounters(); renderTele('all');
 } else {
