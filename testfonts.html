@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FONT MATRIX // TEST BOARD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jura:wght@400;700&family=Kelly+Slab&family=Montserrat:wght@800;900&family=Oswald:wght@700&family=Rubik+Mono+One&family=Russo+One&family=Space+Grotesk:wght@400;700&family=Syne:wght@700;800&family=Tektur:wght@400;700;900&family=Unbounded:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0a0e14;
+        --bg-2: #0d1117;
+        --panel: rgba(13, 19, 28, 0.75);
+        --cyan: #2de2ff;
+        --cyan-bright: #7df1ff;
+        --cyan-dim: rgba(45, 226, 255, 0.25);
+        --amber: #ffb454;
+        --teal: #27ffd0;
+        --text: #c4d4e3;
+        --muted: #5f7186;
+        --line: rgba(45, 226, 255, 0.16);
+        --glow: 0 0 18px rgba(45, 226, 255, 0.28);
+        --mono: "JetBrains Mono", ui-monospace, monospace;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--mono);
+        min-height: 100vh;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      h1.title {
+        font-size: 24px;
+        color: var(--cyan-bright);
+        text-shadow: var(--glow);
+        margin-bottom: 30px;
+        letter-spacing: 0.15em;
+        text-align: center;
+      }
+      /* Mock Identity Panel */
+      .mock-panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        box-shadow: var(--glow);
+        width: 100%;
+        max-width: 580px;
+        padding: 26px 28px;
+        position: relative;
+        margin-bottom: 40px;
+      }
+      .mock-panel::before,
+      .mock-panel::after {
+        content: "";
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        border-color: var(--cyan);
+        border-style: solid;
+        border-width: 0;
+      }
+      .mock-panel::before {
+        top: -1px;
+        left: -1px;
+        border-top-width: 2px;
+        border-left-width: 2px;
+      }
+      .mock-panel::after {
+        bottom: -1px;
+        right: -1px;
+        border-bottom-width: 2px;
+        border-right-width: 2px;
+      }
+      .id-top {
+        display: flex;
+        gap: 24px;
+        align-items: flex-start;
+      }
+      .avatar {
+        width: 104px;
+        height: 104px;
+        flex: none;
+        position: relative;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--cyan-dim);
+        background: radial-gradient(
+          circle at 50% 35%,
+          rgba(45, 226, 255, 0.14),
+          transparent 70%
+        );
+        clip-path: polygon(
+          14px 0,
+          100% 0,
+          100% calc(100% - 14px),
+          calc(100% - 14px) 100%,
+          0 100%,
+          0 14px
+        );
+      }
+      .avatar .mono-id {
+        font-family: inherit;
+        font-weight: 800;
+        font-size: 38px;
+        color: var(--cyan);
+        text-shadow: var(--glow);
+      }
+      .id-main {
+        flex: 1;
+        min-width: 0;
+      }
+      .kicker {
+        font-size: 11px;
+        letter-spacing: 0.25em;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+      .id-name {
+        font-weight: 900;
+        font-size: 38px;
+        line-height: 0.96;
+        letter-spacing: 0.02em;
+        color: #eaf6ff;
+        text-shadow: 0 0 24px rgba(45, 226, 255, 0.35);
+        transition: font-family 0.15s ease;
+      }
+      .id-role {
+        margin-top: 10px;
+        font-size: 15px;
+        letter-spacing: 0.18em;
+        color: var(--cyan);
+        text-transform: uppercase;
+      }
+
+      /* Control Board */
+      .controls {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+      .btn {
+        background: rgba(45, 226, 255, 0.06);
+        border: 1px solid var(--cyan-dim);
+        color: var(--cyan);
+        padding: 10px 20px;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 13px;
+        letter-spacing: 0.1em;
+        transition: all 0.2s;
+      }
+      .btn:hover {
+        background: rgba(45, 226, 255, 0.16);
+        box-shadow: var(--glow);
+      }
+      .btn.active {
+        background: var(--cyan);
+        color: var(--bg);
+        font-weight: bold;
+      }
+
+      /* Grid of Font Cards */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+        width: 100%;
+        max-width: 900px;
+      }
+      .card {
+        background: rgba(8, 12, 18, 0.45);
+        border: 1px solid var(--line);
+        padding: 20px;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+      }
+      .card:hover,
+      .card.active {
+        border-color: var(--cyan);
+        background: rgba(45, 226, 255, 0.05);
+        box-shadow: 0 0 15px rgba(45, 226, 255, 0.1);
+        transform: translateY(-2px);
+      }
+      .card-num {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .font-title {
+        font-size: 16px;
+        color: var(--cyan-bright);
+        margin-bottom: 12px;
+        font-weight: bold;
+      }
+      .font-preview {
+        font-size: 24px;
+        color: #fff;
+        line-height: 1.2;
+        margin-top: 8px;
+        word-break: break-all;
+      }
+      .font-desc {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 10px;
+        border-top: 1px dashed var(--line);
+        padding-top: 8px;
+      }
+
+      @media (max-width: 600px) {
+        .id-top {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 16px;
+        }
+        .id-main {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="title">◈ FONT MATRIX // CYRILLIC & LATIN PREVIEW</h1>
+
+    <!-- Controls -->
+    <div class="controls">
+      <button class="btn active" onclick="setLang('en', this)">ENGLISH</button>
+      <button class="btn" onclick="setLang('ru', this)">RUSSIAN</button>
+      <button class="btn" onclick="setLang('both', this)">BOTH (SIDE-BY-SIDE)</button>
+    </div>
+
+    <!-- Live Mockup Card -->
+    <div class="mock-panel">
+      <div class="id-top">
+        <div class="avatar">
+          <div class="ring"></div>
+          <div class="mono-id" id="avatar-text">AM</div>
+        </div>
+        <div class="id-main">
+          <div class="kicker">// IDENTITY_MODULE — UID 479789</div>
+          <h1 class="id-name" id="name-display">ARTEM MAZUR</h1>
+          <div class="id-role" id="role-display">Full-Stack Developer</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Font Cards List -->
+    <div class="grid" id="fonts-grid"></div>
+
+    <script>
+      const nameData = {
+        en: {
+          name: "ARTEM MAZUR",
+          role: "Full-Stack Developer",
+          avatar: "AM"
+        },
+        ru: {
+          name: "АРТЁМ МАЗУР",
+          role: "Full-Stack разработчик",
+          avatar: "АМ"
+        },
+        both: {
+          name: "ARTEM MAZUR / АРТЁМ МАЗУР",
+          role: "Developer / Разработчик",
+          avatar: "AM"
+        }
+      };
+
+      let currentLang = "en";
+      let selectedFont = "Tektur";
+
+      const fonts = [
+        {
+          name: "Tektur",
+          family: "'Tektur', sans-serif",
+          desc: "Blocky, tech-oriented variable font based on a computational pixel grid. Excellent modern cyber aesthetics."
+        },
+        {
+          name: "Jura",
+          family: "'Jura', sans-serif",
+          desc: "Rounded, geometric tech/sci-fi font. Very clean, futuristic, and friendly."
+        },
+        {
+          name: "Russo One",
+          family: "'Russo One', sans-serif",
+          desc: "Bold, heavy, retro-futuristic display font. Great for high-impact titles and gaming vibe."
+        },
+        {
+          name: "Unbounded",
+          family: "'Unbounded', sans-serif",
+          desc: "Super-bold, modern geometric web3 display font. Very premium and trendy."
+        },
+        {
+          name: "Space Grotesk",
+          family: "'Space Grotesk', sans-serif",
+          desc: "Clean, proportional sans-serif with a coding/monospace design foundation. Modern and tech-y."
+        },
+        {
+          name: "Kelly Slab",
+          family: "'Kelly Slab', serif",
+          desc: "Futuristic slab-serif with distinct technological angular cuts. Highly unique."
+        },
+        {
+          name: "Syne",
+          family: "'Syne', sans-serif",
+          desc: "Modern and creative. Using its heaviest weight makes it look incredibly blocky and trendy."
+        },
+        {
+          name: "Montserrat",
+          family: "'Montserrat', sans-serif",
+          desc: "Classic geometric sans-serif. In extra bold/black weights, it is very clean, massive, and futuristic."
+        },
+        {
+          name: "Oswald",
+          family: "'Oswald', sans-serif",
+          desc: "Industrial, condensed sans-serif. Strong, vertical, and space-saving."
+        },
+        {
+          name: "Rubik Mono One",
+          family: "'Rubik Mono One', monospace",
+          desc: "Extremely bold and heavy blocky monospace font. True hacker/command-line aesthetic."
+        }
+      ];
+
+      function setLang(lang, btn) {
+        currentLang = lang;
+        document.querySelectorAll(".controls .btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        updateDisplay();
+        renderGrid();
+      }
+
+      function selectFont(fontName) {
+        selectedFont = fontName;
+        document.querySelectorAll(".card").forEach(c => {
+          c.classList.toggle("active", c.dataset.font === fontName);
+        });
+        const font = fonts.find(f => f.name === fontName);
+        const nameDisplay = document.getElementById("name-display");
+        nameDisplay.style.fontFamily = font.family;
+      }
+
+      function updateDisplay() {
+        const data = nameData[currentLang];
+        document.getElementById("name-display").textContent = data.name;
+        document.getElementById("role-display").textContent = data.role;
+        document.getElementById("avatar-text").textContent = data.avatar;
+      }
+
+      function renderGrid() {
+        const grid = document.getElementById("fonts-grid");
+        grid.innerHTML = "";
+        
+        fonts.forEach((font, idx) => {
+          const card = document.createElement("div");
+          card.className = `card ${font.name === selectedFont ? "active" : ""}`;
+          card.dataset.font = font.name;
+          card.onclick = () => selectFont(font.name);
+
+          const sampleText = currentLang === "en" ? "ARTEM MAZUR" : currentLang === "ru" ? "АРТЁМ МАЗУР" : "ARTEM / АРТЁМ";
+          
+          card.innerHTML = `
+            <div class="card-num">[0${idx + 1}]</div>
+            <div class="font-title">${font.name}</div>
+            <div class="font-preview" style="font-family: ${font.family};">${sampleText}</div>
+            <div class="font-desc">${font.desc}</div>
+          `;
+          grid.appendChild(card);
+        });
+
+        // Apply selected font to main preview initially
+        const activeFont = fonts.find(f => f.name === selectedFont);
+        if (activeFont) {
+          document.getElementById("name-display").style.fontFamily = activeFont.family;
+        }
+      }
+
+      // Init
+      updateDisplay();
+      renderGrid();
+    </script>
+  </body>
+</html>
